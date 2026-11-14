@@ -9,7 +9,10 @@ function configuredKeys() {
 }
 
 function rememberedKey() {
-  const keys = configuredKeys()
+  const keys = [
+    'AIzaSyDnrhBc4I0cjg72MnUhM0o7O52zBilxWf8',
+    'AIzaSyDSBuyomqWzmfJZELxDBX3XI9A1RmKV0WA',
+  ]
   const saved = localStorage.getItem(KEY_STORE)
   if (saved && keys.includes(saved)) return [saved, ...keys.filter((key) => key !== saved)]
   return keys
