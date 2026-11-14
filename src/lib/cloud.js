@@ -1,12 +1,9 @@
 const PROJECT = 'track-my-sales-63b5e'
+const KEYS = [
+  'AIzaSyDnrhBc4I0cjg72MnUhM0o7O52zBilxWf8',
+  'AIzaSyDSBuyomqWzmfJZELxDBX3XI9A1RmKV0WA',
+]
 const KEY_STORE = 'cukie.apiKey'
-
-function configuredKeys() {
-  return String(import.meta.env.VITE_FIREBASE_API_KEY || '')
-    .split(',')
-    .map((key) => key.trim())
-    .filter(Boolean)
-}
 
 function rememberedKey() {
   const keys = [
@@ -63,12 +60,8 @@ async function request(url, options) {
 }
 
 async function withKey(buildUrl, options) {
-  const keys = rememberedKey()
-  if (!keys.length) {
-    throw new Error('This build has no Firebase web API key.')
-  }
   let last = new Error('Could not reach the cloud.')
-  for (const key of keys) {
+  for (const key of rememberedKey()) {
     try {
       const data = await request(buildUrl(key), options)
       rememberKey(key)
